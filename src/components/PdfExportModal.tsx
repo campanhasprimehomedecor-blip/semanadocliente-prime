@@ -20,7 +20,7 @@ export const PdfExportModal: React.FC<PdfExportModalProps> = ({
   return (
     <div
       id="pdf-export-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
+      className="no-print fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in"
     >
       <div className="relative max-w-md w-full bg-[#14120f] border-2 border-[#d4af37]/50 rounded-2xl p-6 sm:p-8 shadow-2xl text-center text-[#f5f1ea]">
         {/* Corner accents */}
@@ -40,7 +40,7 @@ export const PdfExportModal: React.FC<PdfExportModalProps> = ({
         <div className="flex items-center justify-center gap-2 mb-2">
           <Sparkles className="w-4 h-4 text-[#d4af37]" />
           <h3 className="font-cinzel text-lg sm:text-xl font-bold text-[#f5f1ea]">
-            Gerando Catálogo PDF - Lista do Vendedor
+            Gerando Catálogo PDF - Semana do Cliente
           </h3>
         </div>
 

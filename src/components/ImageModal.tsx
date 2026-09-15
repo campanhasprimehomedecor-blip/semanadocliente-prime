@@ -24,7 +24,7 @@ export const ImageModal: React.FC<ImageModalProps> = ({ product, onClose }) => {
   return (
     <div
       id="product-zoom-modal"
-      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-fade-in"
+      className="no-print fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-fade-in"
       onClick={onClose}
     >
       <div

@@ -8,6 +8,7 @@ import { BackCoverPage } from './components/BackCoverPage';
 import { QuickFilterBar } from './components/QuickFilterBar';
 import { ImageModal } from './components/ImageModal';
 import { PdfExportModal } from './components/PdfExportModal';
+import { PdfExportView } from './components/PdfExportView';
 import { ChevronLeft, ChevronRight, Share2, Check, Download } from 'lucide-react';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
   const [isGeneratingPdf, setIsGeneratingPdf] = useState<boolean>(false);
   const [pdfProgress, setPdfProgress] = useState<PdfExportProgress | null>(null);
   const [copiedLink, setCopiedLink] = useState<boolean>(false);
+  const [imageBase64Map, setImageBase64Map] = useState<Record<string, string>>({});
 
   // Group products into pages with maximum 2 products per page
   const productPages = useMemo(() => {
@@ -67,15 +69,42 @@ export default function App() {
   const handleExportPdf = async () => {
     try {
       setIsGeneratingPdf(true);
-      // Dynamically load PDF export bundle only when requested
-      const { generateInteractivePdf } = await import('./utils/pdfExport');
+      setPdfProgress({
+        currentPage: 0,
+        totalPages: totalPages,
+        stage: 'Carregando imagens e preparando layout de alta resolução...',
+      });
 
-      // Collect IDs of all 16 pages from the DOM
-      const pageIds: string[] = ['print-page-cover'];
-      for (let i = 0; i < productPages.length; i++) {
-        pageIds.push(`print-page-prod-${i + 1}`);
+      // Dynamically load PDF export bundle only when requested
+      const { generateInteractivePdf, preloadAllImagesAsBase64 } = await import('./utils/pdfExport');
+
+      // 1. Gather all unique image URLs to convert to Base64 (eliminates any CORS/taint)
+      const allImageUrls = [
+        CATALOG_CONFIG.logoUrl,
+        ...PRODUCTS.map((p) => p.image),
+      ];
+
+      // Convert images to Base64 if not already cached
+      let currentMap = imageBase64Map;
+      if (Object.keys(currentMap).length < allImageUrls.length) {
+        currentMap = await preloadAllImagesAsBase64(allImageUrls, (loaded, total) => {
+          setPdfProgress({
+            currentPage: 0,
+            totalPages: totalPages,
+            stage: `Otimizando imagens em alta definição (${loaded}/${total})...`,
+          });
+        });
+        setImageBase64Map(currentMap);
+        // Wait brief tick for React state to update the PDF export template DOM with base64 images
+        await new Promise((r) => setTimeout(r, 150));
       }
-      pageIds.push('print-page-backcover');
+
+      // Collect IDs of all 16 pages from the dedicated PDF Export template
+      const pageIds: string[] = ['pdf-export-page-1'];
+      for (let i = 0; i < productPages.length; i++) {
+        pageIds.push(`pdf-export-page-${i + 2}`);
+      }
+      pageIds.push(`pdf-export-page-${totalPages}`);
 
       await generateInteractivePdf(pageIds, (progress) => {
         setPdfProgress(progress);
@@ -119,14 +148,16 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#0f0e0c] text-[#f5f1ea] font-montserrat flex flex-col">
       {/* Top Header */}
-      <Header
-        onExportPdf={handleExportPdf}
-        isGeneratingPdf={isGeneratingPdf}
-        onPrint={handlePrint}
-      />
+      <div className="no-print">
+        <Header
+          onExportPdf={handleExportPdf}
+          isGeneratingPdf={isGeneratingPdf}
+          onPrint={handlePrint}
+        />
+      </div>
 
       {/* Main Catalog Viewer Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-2.5 sm:px-6 py-4 sm:py-8 flex flex-col items-center">
+      <main className="no-print flex-1 max-w-7xl w-full mx-auto px-2.5 sm:px-6 py-4 sm:py-8 flex flex-col items-center">
         {/* Filter and Navigation Toolbar */}
         <QuickFilterBar
           searchTerm={searchTerm}
@@ -287,36 +318,12 @@ export default function App() {
         </div>
       </main>
 
-      {/* Hidden Permanent DOM for PDF Generator & Print Engine */}
-      {/* This renders all 16 pages in exact layout so html2canvas and window.print can capture them effortlessly */}
-      <div
-        id="pdf-render-source"
-        className="print-only"
-        style={{
-          position: 'fixed',
-          left: '-99999px',
-          top: 0,
-          width: '800px',
-        }}
-      >
-        <div id="print-page-cover">
-          <CoverPage />
-        </div>
-
-        {productPages.map((pageProducts, index) => (
-          <div key={`print-p-${index + 1}`} id={`print-page-prod-${index + 1}`}>
-            <ProductPage
-              pageNumber={index + 2}
-              totalPages={totalPages}
-              products={pageProducts}
-            />
-          </div>
-        ))}
-
-        <div id="print-page-backcover">
-          <BackCoverPage />
-        </div>
-      </div>
+      {/* Dedicated A4 Pixel-Perfect Render Engine for PDF Export & Print */}
+      <PdfExportView
+        productPages={productPages}
+        totalPages={totalPages}
+        imageBase64Map={imageBase64Map}
+      />
 
       {/* Product Image Modal */}
       <ImageModal
