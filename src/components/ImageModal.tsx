@@ -14,8 +14,8 @@ export const ImageModal: React.FC<ImageModalProps> = ({ product, onClose }) => {
 
   const handleCopyForSeller = () => {
     const text = `Prime Home Decor - Semana do Cliente | Item #${product.id.toString().padStart(2, '0')}: ${product.name} (DE: ${product.originalPrice} | POR: ${product.promotionalPrice})`;
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).catch(() => {});
     }
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);

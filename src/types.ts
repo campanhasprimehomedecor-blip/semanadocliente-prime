@@ -15,3 +15,9 @@ export interface CatalogConfig {
   disclaimerText: string;
   sellerNotice: string;
 }
+
+export interface PdfExportProgress {
+  currentPage: number;
+  totalPages: number;
+  stage: string;
+}

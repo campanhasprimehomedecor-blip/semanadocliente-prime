@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { PRODUCTS, CATALOG_CONFIG } from './data/catalog';
-import { Product } from './types';
+import { Product, PdfExportProgress } from './types';
 import { Header } from './components/Header';
 import { CoverPage } from './components/CoverPage';
 import { ProductPage } from './components/ProductPage';
@@ -8,7 +8,6 @@ import { BackCoverPage } from './components/BackCoverPage';
 import { QuickFilterBar } from './components/QuickFilterBar';
 import { ImageModal } from './components/ImageModal';
 import { PdfExportModal } from './components/PdfExportModal';
-import { generateInteractivePdf, PdfExportProgress } from './utils/pdfExport';
 import { ChevronLeft, ChevronRight, Share2, Check, Download } from 'lucide-react';
 
 export default function App() {
@@ -68,6 +67,9 @@ export default function App() {
   const handleExportPdf = async () => {
     try {
       setIsGeneratingPdf(true);
+      // Dynamically load PDF export bundle only when requested
+      const { generateInteractivePdf } = await import('./utils/pdfExport');
+
       // Collect IDs of all 16 pages from the DOM
       const pageIds: string[] = ['print-page-cover'];
       for (let i = 0; i < productPages.length; i++) {
@@ -107,7 +109,9 @@ export default function App() {
       }
     }
     // Fallback: Copy link
-    navigator.clipboard.writeText(window.location.href);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(window.location.href).catch(() => {});
+    }
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2500);
   };

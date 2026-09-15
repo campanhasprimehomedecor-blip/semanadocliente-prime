@@ -16,8 +16,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onZoom, index
     const productSummary = `Prime Home Decor - Semana do Cliente | Item #${product.id.toString().padStart(2, '0')}: ${product.name} (DE: ${product.originalPrice} | POR: ${product.promotionalPrice})`;
     
     // Copy summary to clipboard for quick pasting to seller
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(productSummary);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(productSummary).catch(() => {});
     }
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
