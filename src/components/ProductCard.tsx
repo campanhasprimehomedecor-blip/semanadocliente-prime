@@ -34,7 +34,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onZoom, index
       </div>
 
       {/* Product Image Container */}
-      <div className="relative w-full sm:w-[220px] md:w-[240px] shrink-0 aspect-[4/3] bg-[#0c0b0a] rounded-lg overflow-hidden border border-[#2b2720] flex items-center justify-center group-hover:border-[#d4af37]/40 transition-colors">
+      <div className="relative w-full sm:w-[200px] md:w-[240px] shrink-0 aspect-[4/3] bg-[#0c0b0a] rounded-lg overflow-hidden border border-[#2b2720] flex items-center justify-center group-hover:border-[#d4af37]/40 transition-colors">
         <img
           id={`product-img-${product.id}`}
           src={product.image}
@@ -50,12 +50,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onZoom, index
               onZoom(product);
             }}
             title="Ampliar imagem do produto"
-            className="absolute bottom-2 right-2 p-1.5 rounded-full bg-black/70 text-[#d4af37] opacity-0 group-hover:opacity-100 hover:bg-[#d4af37] hover:text-black transition-all cursor-pointer backdrop-blur-sm no-print"
+            className="absolute bottom-2 right-2 p-2 rounded-full bg-black/80 text-[#d4af37] opacity-100 sm:opacity-0 sm:group-hover:opacity-100 hover:bg-[#d4af37] hover:text-black transition-all cursor-pointer backdrop-blur-sm no-print shadow-md"
           >
             <ZoomIn className="w-4 h-4" />
           </button>
         )}
-        <div className="absolute top-2 left-2 bg-black/75 border border-[#d4af37]/40 px-2 py-0.5 rounded text-[10px] font-cinzel text-[#e5c76b] tracking-wider">
+        <div className="absolute top-2 left-2 bg-black/80 border border-[#d4af37]/40 px-2 py-0.5 rounded text-[10px] font-cinzel text-[#e5c76b] tracking-wider">
           ITEM #{product.id.toString().padStart(2, '0')}
         </div>
       </div>
@@ -64,14 +64,14 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onZoom, index
       <div className="flex flex-col justify-between flex-1 w-full text-left">
         <div>
           {/* Subtle category or tag */}
-          <div className="flex items-center gap-2 mb-1.5">
-            <span className="text-[11px] font-montserrat tracking-widest text-[#a89d89] uppercase">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-[10px] sm:text-[11px] font-montserrat tracking-widest text-[#a89d89] uppercase">
               Lista de Vendas • Prime Home Decor
             </span>
           </div>
 
           {/* Product Name */}
-          <h3 className="font-cinzel text-[#f5f1ea] font-semibold text-base sm:text-lg leading-snug tracking-wide line-clamp-2 sm:line-clamp-3 mb-3 group-hover:text-[#f8e5ad] transition-colors">
+          <h3 className="font-cinzel text-[#f5f1ea] font-semibold text-sm sm:text-base md:text-lg leading-snug tracking-wide line-clamp-2 sm:line-clamp-3 mb-2 sm:mb-3 group-hover:text-[#f8e5ad] transition-colors">
             {product.name}
           </h3>
         </div>
@@ -81,28 +81,28 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onZoom, index
           <div>
             <div className="text-xs text-[#8c8273] font-montserrat flex items-center gap-2">
               <span>DE:</span>
-              <span className="line-through decoration-[#c2410c] decoration-1.5 text-[#9e9485] font-medium text-sm">
+              <span className="line-through decoration-[#c2410c] decoration-1.5 text-[#9e9485] font-medium text-xs sm:text-sm">
                 {product.originalPrice}
               </span>
             </div>
             <div className="flex items-baseline gap-2 mt-0.5">
               <span className="text-xs font-semibold text-[#d4af37] font-montserrat">POR:</span>
-              <span className="text-2xl sm:text-3xl font-bold font-cinzel text-[#f8e5ad] tracking-tight">
+              <span className="text-xl sm:text-2xl md:text-3xl font-bold font-cinzel text-[#f8e5ad] tracking-tight">
                 {product.promotionalPrice}
               </span>
             </div>
             <p className="text-[10px] text-[#786f60] font-montserrat">
-              Condições exclusivas de negociação com o vendedor
+              Condições exclusivas de negociação
             </p>
           </div>
 
           {/* CTA Button: TIRAR PRINT P/ O VENDEDOR */}
-          <div className="flex flex-col items-end gap-1">
+          <div className="w-full sm:w-auto flex flex-col items-stretch sm:items-end gap-1">
             <button
               id={`btn-order-${product.id}`}
               type="button"
               onClick={handlePrintClick}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#d4af37] via-[#f3e7c4] to-[#cba32d] text-[#12100d] font-cinzel font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:brightness-105 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
+              className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#d4af37] via-[#f3e7c4] to-[#cba32d] text-[#12100d] font-cinzel font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] hover:brightness-105 active:scale-[0.98] transition-all whitespace-nowrap cursor-pointer"
             >
               {copied ? (
                 <>
@@ -116,7 +116,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onZoom, index
                 </>
               )}
             </button>
-            <span className="text-[9px] text-[#a89d89] font-montserrat tracking-tight">
+            <span className="text-[9px] text-[#a89d89] font-montserrat tracking-tight text-center sm:text-right">
               {copied ? 'Cole a mensagem na conversa com o vendedor' : 'Envie o print desta peça ao seu vendedor'}
             </span>
           </div>

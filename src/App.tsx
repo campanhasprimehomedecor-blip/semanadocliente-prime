@@ -126,7 +126,7 @@ export default function App() {
       />
 
       {/* Main Catalog Viewer Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col items-center">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-2.5 sm:px-6 py-4 sm:py-8 flex flex-col items-center">
         {/* Filter and Navigation Toolbar */}
         <QuickFilterBar
           searchTerm={searchTerm}
@@ -182,35 +182,35 @@ export default function App() {
               </div>
 
               {/* Bottom Flip Navigation Buttons */}
-              <div className="flex items-center gap-4 mt-6">
+              <div className="flex items-center justify-between sm:justify-center gap-2 sm:gap-4 mt-6 w-full max-w-[800px] px-1 sm:px-0">
                 <button
                   type="button"
                   onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                   disabled={currentPage <= 1}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#181613] border border-[#2e2820] text-xs font-montserrat text-[#e5c76b] disabled:opacity-30 hover:bg-[#25211a] transition-all cursor-pointer"
+                  className="min-h-[44px] flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg bg-[#181613] border border-[#2e2820] text-xs font-montserrat text-[#e5c76b] disabled:opacity-30 hover:bg-[#25211a] transition-all cursor-pointer active:scale-95"
                 >
                   <ChevronLeft className="w-4 h-4" />
-                  <span>Página Anterior</span>
+                  <span>Anterior</span>
                 </button>
 
-                <span className="font-cinzel text-sm text-[#d4af37] px-3">
-                  Página {currentPage} de {totalPages}
+                <span className="font-cinzel text-xs sm:text-sm text-[#d4af37] px-2 sm:px-3 text-center whitespace-nowrap">
+                  Pág. {currentPage} de {totalPages}
                 </span>
 
                 <button
                   type="button"
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage >= totalPages}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#181613] border border-[#2e2820] text-xs font-montserrat text-[#e5c76b] disabled:opacity-30 hover:bg-[#25211a] transition-all cursor-pointer"
+                  className="min-h-[44px] flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg bg-[#181613] border border-[#2e2820] text-xs font-montserrat text-[#e5c76b] disabled:opacity-30 hover:bg-[#25211a] transition-all cursor-pointer active:scale-95"
                 >
-                  <span>Próxima Página</span>
+                  <span>Próxima</span>
                   <ChevronRight className="w-4 h-4" />
                 </button>
               </div>
             </div>
           ) : (
             /* Continuous Mode: All pages stacked sequentially */
-            <div className="w-full max-w-[800px] flex flex-col gap-10">
+            <div className="w-full max-w-[800px] flex flex-col gap-6 sm:gap-10">
               {/* Cover Page */}
               <div className="relative">
                 <div className="text-right text-[11px] font-cinzel text-[#8c8273] mb-2 pr-2">
@@ -254,9 +254,9 @@ export default function App() {
         </div>
 
         {/* Action Callout Bar */}
-        <div className="no-print mt-12 w-full max-w-[800px] p-6 rounded-2xl bg-gradient-to-r from-[#181613] via-[#201d18] to-[#181613] border border-[#d4af37]/40 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h4 className="font-cinzel text-lg font-bold text-[#f5f1ea]">
+        <div className="no-print mt-8 sm:mt-12 w-full max-w-[800px] p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-gradient-to-r from-[#181613] via-[#201d18] to-[#181613] border border-[#d4af37]/40 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-center sm:text-left">
+            <h4 className="font-cinzel text-base sm:text-lg font-bold text-[#f5f1ea]">
               Lista Oficial para Atendimento e Vendas
             </h4>
             <p className="text-xs text-[#a89d89] mt-1">
@@ -264,11 +264,11 @@ export default function App() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto">
+          <div className="flex items-center gap-2.5 sm:gap-3 w-full sm:w-auto">
             <button
               type="button"
               onClick={handleShare}
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#27241e] border border-[#3d372b] hover:border-[#d4af37] text-xs text-[#e5c76b] transition-all cursor-pointer"
+              className="flex-1 sm:flex-initial min-h-[44px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#27241e] border border-[#3d372b] hover:border-[#d4af37] text-xs text-[#e5c76b] transition-all cursor-pointer active:scale-95"
             >
               {copiedLink ? <Check className="w-4 h-4 text-[#25D366]" /> : <Share2 className="w-4 h-4" />}
               <span>{copiedLink ? 'Link Copiado!' : 'Compartilhar'}</span>
@@ -278,7 +278,7 @@ export default function App() {
               type="button"
               onClick={handleExportPdf}
               disabled={isGeneratingPdf}
-              className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#d4af37] via-[#f3e7c4] to-[#cba32d] text-[#12100d] font-cinzel font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-105 transition-all cursor-pointer"
+              className="flex-1 sm:flex-initial min-h-[44px] flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#d4af37] via-[#f3e7c4] to-[#cba32d] text-[#12100d] font-cinzel font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-105 transition-all cursor-pointer active:scale-95"
             >
               <Download className="w-4 h-4" />
               <span>Baixar PDF</span>
