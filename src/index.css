@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-cinzel {
+    font-family: 'Cinzel', serif;
+  }
+  .font-cormorant {
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+@media print {
+  body {
+    background: #0f0e0c !important;
+    color: #f5f1ea !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .catalog-page {
+    page-break-after: always;
+    break-after: page;
+    height: 100vh;
+    box-shadow: none !important;
+    margin: 0 !important;
+  }
+}
+
+/* Luxury gold border and text gradients */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #f3e7c4 0%, #d4af37 50%, #aa820a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-border {
+  border-image: linear-gradient(135deg, #d4af37, #99751e, #f5df9e) 1;
+}
+

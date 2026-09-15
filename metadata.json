@@ -1,0 +1,6 @@
+{
+  "name": "Catálogo Prime Home Decor - Semana do Cliente",
+  "description": "Catálogo digital premium interativo para a Semana do Cliente da Prime Home Decor com móveis clássicos de luxo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
