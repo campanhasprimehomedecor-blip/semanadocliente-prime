@@ -1,5 +1,5 @@
 import React from 'react';
-import { CATALOG_CONFIG } from '../data/catalog';
+import { CATALOG_CONFIG, PRODUCTS } from '../data/catalog';
 import { Sparkles, Camera, ChevronDown } from 'lucide-react';
 
 interface CoverPageProps {
@@ -71,7 +71,7 @@ export const CoverPage: React.FC<CoverPageProps> = ({ onStartBrowse }) => {
         </div>
 
         <p className="mt-2.5 sm:mt-3 text-[11px] sm:text-sm font-montserrat tracking-widest text-[#a89d89] uppercase">
-          Catálogo Oficial • 28 Peças de Destaque
+          Catálogo Oficial • {PRODUCTS.length} Peças de Destaque
         </p>
       </div>
 

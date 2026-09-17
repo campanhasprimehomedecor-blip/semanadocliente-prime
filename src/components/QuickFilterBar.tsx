@@ -1,5 +1,6 @@
 import React from 'react';
 import { Search, LayoutGrid, BookOpen, ChevronLeft, ChevronRight } from 'lucide-react';
+import { PRODUCTS } from '../data/catalog';
 
 interface QuickFilterBarProps {
   searchTerm: string;
@@ -25,7 +26,7 @@ export const QuickFilterBar: React.FC<QuickFilterBarProps> = ({
   onPageChange,
 }) => {
   const categories = [
-    { id: 'all', label: 'Todos (28)' },
+    { id: 'all', label: `Todos (${PRODUCTS.length})` },
     { id: 'sofas', label: 'Jogos de Sofá' },
     { id: 'poltronas', label: 'Poltronas Clássicas' },
     { id: 'mesas-decor', label: 'Mesas & Decorações' },

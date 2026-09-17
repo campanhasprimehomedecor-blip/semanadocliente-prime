@@ -1,6 +1,6 @@
 import React from 'react';
 import { Product } from '../types';
-import { CATALOG_CONFIG } from '../data/catalog';
+import { CATALOG_CONFIG, PRODUCTS } from '../data/catalog';
 import { Camera, Sparkles, Truck, ShieldCheck, CreditCard } from 'lucide-react';
 
 interface PdfExportViewProps {
@@ -106,7 +106,7 @@ export const PdfExportView: React.FC<PdfExportViewProps> = ({
           </div>
 
           <p style={{ marginTop: '20px', fontSize: '13px', fontFamily: 'Montserrat, sans-serif', letterSpacing: '0.2em', color: '#a89d89', textTransform: 'uppercase' }}>
-            Catálogo Oficial • 28 Peças de Destaque
+            Catálogo Oficial • {PRODUCTS.length} Peças de Destaque
           </p>
         </div>
 
