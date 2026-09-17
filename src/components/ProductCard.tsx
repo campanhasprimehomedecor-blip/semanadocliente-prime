@@ -71,7 +71,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onZoom, index
           </div>
 
           {/* Product Name */}
-          <h3 className="font-cinzel text-[#f5f1ea] font-semibold text-sm sm:text-base md:text-lg leading-snug tracking-wide line-clamp-2 sm:line-clamp-3 mb-2 sm:mb-3 group-hover:text-[#f8e5ad] transition-colors">
+          <h3 className="font-cinzel text-[#f5f1ea] font-semibold text-sm sm:text-base md:text-lg leading-snug tracking-wide mb-2 sm:mb-3 group-hover:text-[#f8e5ad] transition-colors break-words">
             {product.name}
           </h3>
         </div>

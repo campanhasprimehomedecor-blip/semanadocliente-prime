@@ -44,8 +44,8 @@ export default function App() {
       if (!matchesSearch) return false;
 
       if (selectedCategory === 'sofas') return p.id >= 1 && p.id <= 8;
-      if (selectedCategory === 'poltronas') return p.id >= 9 && p.id <= 20;
-      if (selectedCategory === 'mesas-decor') return p.id >= 21 && p.id <= 25;
+      if (selectedCategory === 'poltronas') return p.id >= 9 && p.id <= 19;
+      if (selectedCategory === 'mesas-decor') return p.id >= 20 && p.id <= 24;
 
       return true;
     });
