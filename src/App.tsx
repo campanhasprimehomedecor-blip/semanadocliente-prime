@@ -31,7 +31,7 @@ export default function App() {
     return pages;
   }, []);
 
-  // Total pages: Cover (1) + 14 Product Pages + Back Cover (1) = 16
+  // Total pages: Cover (1) + 11 Product Pages + Back Cover (1) = 13
   const totalPages = 1 + productPages.length + 1;
 
   // Filtered products for quick search
@@ -44,8 +44,8 @@ export default function App() {
       if (!matchesSearch) return false;
 
       if (selectedCategory === 'sofas') return p.id >= 1 && p.id <= 8;
-      if (selectedCategory === 'poltronas') return p.id >= 9 && p.id <= 19;
-      if (selectedCategory === 'mesas-decor') return p.id >= 20 && p.id <= 24;
+      if (selectedCategory === 'poltronas') return p.id >= 9 && p.id <= 18;
+      if (selectedCategory === 'mesas-decor') return p.id >= 19 && p.id <= 22;
 
       return true;
     });
